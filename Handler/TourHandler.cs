@@ -150,7 +150,7 @@ namespace TravelAgency.Handler
         }
 
 
-        //Remove list of customers in one tour
+        //Remove one tour with its customer
         public void deletion(int tourID)
         {
             using (TourContext db = new TourContext())
@@ -163,7 +163,7 @@ namespace TravelAgency.Handler
           
                 db.Tours.Remove(dtourId);
                 db.SaveChanges();
-                // Test cont
+                
 
             }
             DisplayTour();

@@ -102,5 +102,19 @@ namespace TravelAgency.Handler
             }
 
         }
+
+        public void updateCustomer(int customID)
+        {
+
+            using(TourContext db=new TourContext())
+            {
+                var customer=db.Customers.FirstOrDefault(x=>x.Id==customID);
+                Console.WriteLine("Input the Employee Id to change:");
+                int newEmId = Convert.ToInt32(Console.ReadLine());
+                customer.EmployeeId=newEmId;
+                db.SaveChanges();
+              }
+
+        }
     }
 }

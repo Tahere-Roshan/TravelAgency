@@ -21,24 +21,24 @@ namespace TravelAgency
             EmployeeHandler MyemployeeHandler= new EmployeeHandler();
 
 
-           /* Console.WriteLine("Enter Option: 1- Tour,  2-Customer, 3- Employee");
-            int Menue = Convert.ToInt32(Console.ReadLine());
-            //Console.WriteLine("Enter to choose: 1- Create, 2-Read, 3-Update, 4-Remove");
-            //int option = Convert.ToInt32(Console.ReadLine());
-             switch(Menue)
-            {
-                case 1:
-                    MytourHandler.DisplayTour();
-                    break;
-                    case 2:
-                    MycustomerHandler.DisplayCustomer();
-                    break;
-                    case 3:
-                    MyemployeeHandler.DisplayEmployee(); 
-                    break;
+            /* Console.WriteLine("Enter Option: 1- Tour,  2-Customer, 3- Employee");
+             int Menue = Convert.ToInt32(Console.ReadLine());
+             //Console.WriteLine("Enter to choose: 1- Create, 2-Read, 3-Update, 4-Remove");
+             //int option = Convert.ToInt32(Console.ReadLine());
+              switch(Menue)
+             {
+                 case 1:
+                     MytourHandler.DisplayTour();
+                     break;
+                     case 2:
+                     MycustomerHandler.DisplayCustomer();
+                     break;
+                     case 3:
+                     MyemployeeHandler.DisplayEmployee(); 
+                     break;
 
-            }
-*/
+             }
+ */
 
             ////// Menue of CRUD tables
 
@@ -50,13 +50,17 @@ namespace TravelAgency
             //MytourHandler.ListTour();
             //MyemployeeHandler.Addition();
             //MyemployeeHandler.DisplayCustomerList();
-            Console.WriteLine("Input Tour Id to delete:");
-            int input=Convert.ToInt32(Console.ReadLine());
-            MytourHandler.deletion(input);
+            /* Console.WriteLine("Input Tour Id to delete:");
+             int input=Convert.ToInt32(Console.ReadLine());
+             MytourHandler.deletion(input);*/
 
             /*Console.WriteLine("Input Employee Id to delete Customer:");
             int input=Convert.ToInt32(Console.ReadLine());
             MyemployeeHandler.delCustomer(input);*/
+
+            Console.WriteLine("Write customer Id to update:");
+            int customid = Convert.ToInt32(Console.ReadLine());
+            MyemployeeHandler.updateCustomer(customid);
 
 
 

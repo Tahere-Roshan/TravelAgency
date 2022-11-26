@@ -163,7 +163,7 @@ namespace TravelAgency.Handler
           
                 db.Tours.Remove(dtourId);
                 db.SaveChanges();
-
+                // Test cont
 
             }
             DisplayTour();

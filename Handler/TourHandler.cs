@@ -118,7 +118,32 @@ namespace TravelAgency.Handler
         }
 
 
-        //REad and Display the Tour Table
+
+        public void AddTourCustomer(string TourName, string CustomerName)
+        {
+            using (TourContext db = new TourContext())
+            {
+                Customer customer = db.Customers.Where(c => c.Name == CustomerName).FirstOrDefault();
+                if (customer != null)
+                {
+           
+                    Reservations reservations = new Reservations();
+
+                    var tourentity = db.Tours.Where(t=>t.Description==TourName).FirstOrDefault();
+                    
+                    reservations.CustomerId = customer.Id;
+                    reservations.TourID = tourentity.Id;
+                    db.Reservations.Add(reservations);
+                    db.SaveChanges();
+                }
+                else
+                    Console.WriteLine("There is no Reservation.");
+
+            }
+
+        }
+
+        //Raad and Display the Tour Table with their customer
         public void ListTour()
         {
             using (TourContext db = new TourContext())
@@ -139,15 +164,15 @@ namespace TravelAgency.Handler
             }
         }
 
-        //Update the Tour Table
-        public void updateTour()
+        //Update the cu
+       /* public void updateTour()
         {
             //Tour newtour= new Tour();
             DisplayTour();
-            Console.WriteLine("Enter Tour Id:");
+            Console.WriteLine("Enter Tour Description:");
             int tourId = Convert.ToInt32(Console.ReadLine());
             //CreateTour(tourId);
-        }
+        }*/
 
 
         //Remove one tour with its customer
@@ -171,6 +196,10 @@ namespace TravelAgency.Handler
 
         }
 
+        //remove one customer from one tour
+
+
+        
     }
 }
 

@@ -22,7 +22,7 @@ namespace TravelAgency.Handler
             }
         }
 
-        //Update Employee Table
+        //Update Employee Table - Add Employee
         public void AddEmployee(Employee employee)
         {
             using (TourContext db = new TourContext())
@@ -69,46 +69,47 @@ namespace TravelAgency.Handler
         }
         public void DisplayCustomerList()
         {
-            List<Customer> customerlistemployee = GetCustomerList();
-            Employee employee = new Employee();
-            foreach (var customer in customerlistemployee)
+            using (TourContext db = new TourContext())
             {
-                Console.WriteLine("Eployee Id:" + " " + customer.EmployeeId + "" + "Customer Name:" + " " + customer.Name);
+                //Employee employee = new Employee();
+                foreach (var customer in GetCustomerList())
+                {
+                    Employee employee = db.Employee.Find(customer.EmployeeId);
+                    Console.WriteLine(customer.EmployeeId + "-" + employee.Name + "," + "Customer Name:" + " " + customer.Name);
+                }
             }
         }
 
 
 
-
+        //reference-https://stackoverflow.com/questions/2519866/how-do-i-delete-multiple-rows-in-entity-framework-without-foreach
+        //Delete list of customers by the same employeeID (by input one employee ID)
         public void delCustomer(int employeId)
         {
 
-            List<Customer> dCustomer = GetCustomerList();
             using (TourContext db = new TourContext())
             {
-                var demployeeId = db.Customers.FirstOrDefault(x => x.EmployeeId == employeId);
 
-
-                foreach (var cust in dCustomer)
-                {
-
-                    db.Customers.Remove(cust);
-                    db.SaveChanges();
-
-                }
+                db.Customers.RemoveRange(db.Customers.Where(x => x.EmployeeId == employeId));
+                db.SaveChanges();
                 DisplayEmployee();
                 DisplayCustomerList();
-
             }
 
         }
 
+
+
+        //update 1M relationship
         public void updateCustomer(int customID)
         {
 
             using(TourContext db=new TourContext())
             {
-                var customer=db.Customers.FirstOrDefault(x=>x.Id==customID);
+                
+                var customer = db.Customers.Include(x => x.Employee).FirstOrDefault(y => y.Id == customID);
+                Employee employee = db.Employee.Find(customer.EmployeeId);
+                Console.WriteLine("Customer Name:"+"   "+customer.Name+"  "+"Employee Name:"+" "+ employee.Name);
                 Console.WriteLine("Input the Employee Id to change:");
                 int newEmId = Convert.ToInt32(Console.ReadLine());
                 customer.EmployeeId=newEmId;

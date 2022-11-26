@@ -49,7 +49,9 @@ namespace TravelAgency.Handler
                     }
                     else
                     {
-                        //add new tour
+                        TourHandler tourHandler= new TourHandler();
+                        tourHandler.Addition();
+
                     }
 
                 }
@@ -87,7 +89,7 @@ namespace TravelAgency.Handler
   
       
         
-        //Read and Display from Customer Table
+        //Read and Display from Customer Table with their Reservation
         public void ListCustomer()
         {
             using (TourContext db = new TourContext())
@@ -108,17 +110,17 @@ namespace TravelAgency.Handler
             }
         }
 
-        //Update the Customer Table
+        //Update the Customer Table by adding new one
         public void DisplayCustomer()
         {
             Console.WriteLine("Input the new Customer Name");
             string name= newCustomer.Name = Console.ReadLine();
             Console.Write("National ID:");
-            /*newCustomer.NationalID = Convert.ToInt32(Console.ReadLine());
+            newCustomer.NationalID = Convert.ToInt32(Console.ReadLine());
             Console.Write("Phone Number:");
             newCustomer.Phone = Convert.ToInt32(Console.ReadLine());
             Console.Write("Address");
-            newCustomer.Address = Console.ReadLine();*/
+            newCustomer.Address = Console.ReadLine();
             Console.WriteLine("Eployee Id:");
             newCustomer.EmployeeId= Convert.ToInt32(Console.ReadLine());
             Console.Write("Tour ID:");
@@ -129,24 +131,71 @@ namespace TravelAgency.Handler
 
         }
 
-        public void CURD(int aOperation)
+
+        //update tour of one customer
+        public void updateTour(string customName)
         {
-            switch (aOperation)
+            TourHandler tourHandler = new TourHandler();
+
+            using (TourContext db = new TourContext())
             {
-                case 0:
-                    ListCustomer();//Read 
-                    break;
-                    case 1:
-                    DisplayCustomer();//Update & Create
-                    break;
+               
+                var customId = db.Customers.FirstOrDefault(x => x.Name == customName);
+
+                var uCustomer = db.Customers.Where(x => x.Name == customName).Include(x => x.Reservations).ThenInclude(x => x.Tour);
+
+                if (null != uCustomer)
+                {
+                    string tourName = "";
+                    int tourID = 0;
+                    foreach (var ctour in uCustomer)
+                    {
+                        /*string tourName = "";
+                        int tourID = 0;*/
+                        foreach (var reservation in ctour.Reservations)
+                        {
+                            tourName += reservation.Tour.Description;
+                            tourID += reservation.Tour.Id;
+                        }
+                            
+                        Console.WriteLine(tourID+":"+tourName);
+                    }
+
+                    Console.WriteLine("Input tour to add:");
+                   
+                    string tname = Console.ReadLine();
+                    tourHandler.AddTourCustomer(tname, customName);
+
+                }
+                else
+                {
+                    Console.WriteLine("There is no Customer");
+                    
+                }
+                db.SaveChanges();
+            }
+
+        }
+
+        public void deletion(int CustomerId)
+        {
+            using (TourContext db = new TourContext())
+            {
+                
+                Customer aCustomer = new Customer();
+                aCustomer.Id = CustomerId;
+                var dCustomerId = db.Customers.Include(x => x.Reservations).FirstOrDefault(y => y.Id == CustomerId);
+
+                db.Customers.Remove(dCustomerId);
+                db.SaveChanges();
 
 
             }
-            
-
+            ListCustomer();
 
         }
-    
+
+
 
     }
 }

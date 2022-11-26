@@ -25,10 +25,11 @@ namespace TravelAgency.Model
         protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
         {
             //DB file path
-           // string path = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.ToString() + Path.Combine(Path.DirectorySeparatorChar.ToString(), "TravelAgency.db");
+            // string path = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.ToString() + Path.Combine(Path.DirectorySeparatorChar.ToString(), "TravelAgency.db");
             //Console.WriteLine(path);
             //Database file. When using migrations in console app, absolute path necessary
             //string newpath = @"D:\Tahi\West uni\Modules\Master in IT and Management\Cources\3 - Full - Stack\Specialist Lectures\DataDtorage\Assignment\Lab\TravelAgency\TravelAgency\TravelAgencyDB.db";
+            //optionsbuilder.EnableSensitiveDataLogging(true);
             optionsbuilder.UseSqlite(@"DataSource= D:\DataStorag\TravelAgency\TravelAgency.db");// + path);
             //string newpath= 
         }

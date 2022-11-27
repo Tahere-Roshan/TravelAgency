@@ -41,7 +41,9 @@ namespace TravelAgency
                                 MytourHandler.ListTour();
                                 break;
                             case 3:
-                                //MytourHandler.updateTour();//need to complete
+                                Console.WriteLine("Input Customer Name:");
+                                string cName = Console.ReadLine();
+                                MycustomerHandler.updateTour(cName);
                                 break;
                             case 4:
                                 Console.WriteLine("Input Tour Id to delete:");

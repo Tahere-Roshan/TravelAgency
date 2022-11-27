@@ -156,15 +156,30 @@ namespace TravelAgency.Handler
                         {
                             tourName += reservation.Tour.Description;
                             tourID += reservation.Tour.Id;
+                            
                         }
                             
-                        Console.WriteLine(tourID+":"+tourName);
+                        //Console.WriteLine(tourID+":"+tourName);
+                        Console.WriteLine("" + tourName + ",");
                     }
 
                     Console.WriteLine("Input tour to add:");
                    
                     string tname = Console.ReadLine();
                     tourHandler.AddTourCustomer(tname, customName);
+                    foreach (var ctour in uCustomer)
+                    {
+                        /*string tourName = "";
+                        int tourID = 0;*/
+                        foreach (var reservation in ctour.Reservations)
+                        {
+                            tourName += reservation.Tour.Description;
+                            tourID += reservation.Tour.Id;
+                        }
+
+                        //Console.WriteLine(tourID + ":" + tourName);
+                        Console.WriteLine("" + tourName + ",");
+                    }
 
                 }
                 else
